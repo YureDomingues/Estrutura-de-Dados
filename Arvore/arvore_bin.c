@@ -59,14 +59,11 @@ void preOrdem(Arv* v){
 
 void simetrica(Arv *v){
     if(!arv_vazia(v)){
-        preOrdem(v->esq);
+        simetrica(v->esq);
         printf("%c ", v->info);
-        preOrdem(v->dir);
+        simetrica(v->dir);
     }
-
 }
-
-//Colocar altura
 
 void posOrdem(Arv *v){
     if(!arv_vazia(v)){
@@ -75,6 +72,15 @@ void posOrdem(Arv *v){
         printf("%c ", v->info);
     }
 
+}
+
+int max2(int a, int b){
+    return (a>b)? a : b;
+}
+
+int arv_altura(Arv* v){
+    if(arv_vazia(v)) return -1;
+    return 1 + max2(arv_altura(v->esq), arv_altura(v->dir));
 }
 
 
@@ -102,9 +108,13 @@ int main(void){
     printf("Pre-Ordem: \n");
     preOrdem(a);
     printf("\n");
-    printf("Pos-Ordem: \n");
+    printf("Simetrica: \n");
     simetrica(a);
     printf("\n");
+    printf("Pos-Ordem: \n");
+    posOrdem(a);
+    printf("\n");
+    printf("Altura arv: %d\n", arv_altura(a));
     
     return 0;
 }
