@@ -170,6 +170,3 @@ int contar_elementos(arvore *arv)
         return 1 + contar_elementos(arv->esq) + contar_elementos(arv->dir);
     }
 }
-
-
-/*--------------------------Funções Atividade 2--------------------------*/

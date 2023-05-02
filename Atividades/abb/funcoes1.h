@@ -1,5 +1,7 @@
-#ifndef _FUNCOES_H
-#define _FUNCOES_H
+//Funções Atividade 1
+
+#ifndef _FUNCOES1_H
+#define _FUNCOES1_H
 
 #include <stdio.h>
 #include <stdlib.h>

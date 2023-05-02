@@ -16,7 +16,7 @@ void menu(arvore **arv, FILE **arq, int *terminou)
         printf("2 - Imprimir a árvore\n");
         printf("3 - Verificar se o elemento x existe na árvore\n");
         printf("4 - Contar o número de elementos da árvore\n");
-        printf("5 - Imprimir os nós das folhas da árvore\n");
+        printf("5 - Imprimir folhas menores que um valor x\n");
         printf("6 - Verificar se a árvore está balanceada\n");
         printf("7 - Verificar se a árvore está cheia\n");
         printf("8 - Imprimir o nível de um nó x\n");
@@ -38,7 +38,7 @@ void menu(arvore **arv, FILE **arq, int *terminou)
 
             if (*arq == NULL)
             {
-                printf("Houve um erro ao tentar abrir arquivo.\nDigite novamente o nome: ");
+                printf("Houve um erro ao tentar abrir arquivo.\n\nDigite novamente o nome: ");
             }
             else
             {
@@ -63,7 +63,7 @@ void menu(arvore **arv, FILE **arq, int *terminou)
         int x;
         printf("Digite o elemento: ");
         scanf("%d", &x);
-        printf("\n%s esse elemento na árvore.\n", verifica_existencia(*arv, x) ? "Existe" : "Não existe");
+        printf("\n%s esse elemento na árvore.\n", verifica_existencia_abb(&(*arv), x) ? "Existe" : "Não existe");
         break;
     }
 
@@ -75,7 +75,10 @@ void menu(arvore **arv, FILE **arq, int *terminou)
     }
 
     case 5:
-        imprimir_no_folha(*arv);
+        int elemento_menor;
+        printf("Informe o elemento: ");
+        scanf("%d", &elemento_menor);
+        imprimir_folhas_menores(arv, elemento_menor);
         printf("\n");
         break;
     case 6:
@@ -94,6 +97,7 @@ void menu(arvore **arv, FILE **arq, int *terminou)
     case 9:
     {
         *terminou = 1;
+        limpar_memoria(arv);
         printf("Saindo...\n\n");
         break;
     }
