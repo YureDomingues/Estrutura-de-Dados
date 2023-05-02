@@ -84,7 +84,7 @@ void menu(arvore **arv, FILE **arq, int *terminou)
     case 5:
     {
         int elemento_menor;
-        printf("Informe o elemento: ");
+        printf("Informe o valor: ");
         scanf("%d", &elemento_menor);
         imprimir_folhas_menores(arv, elemento_menor);
         printf("\n");
