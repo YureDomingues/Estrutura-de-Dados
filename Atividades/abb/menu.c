@@ -15,12 +15,11 @@ void menu(arvore **arv, FILE **arq, int *terminou)
         printf("1 - Ler uma árvore de um arquivo fornecido pelo usuário\n");
         printf("2 - Imprimir a árvore\n");
         printf("3 - Verificar se o elemento x existe na árvore\n");
-        printf("4 - Contar o número de elementos da árvore\n");
+        printf("4 - Imprimir o nível de um nó x\n");
         printf("5 - Imprimir folhas menores que um valor x\n");
-        printf("6 - Verificar se a árvore está balanceada\n");
-        printf("7 - Verificar se a árvore está cheia\n");
-        printf("8 - Imprimir o nível de um nó x\n");
-        printf("9 - Sair\n\n");
+        printf("6 - Inserir um nó x na árvore\n");
+        printf("7 - Remover um nó x na árvore\n");
+        printf("8 - Sair\n\n");
     }
     int escolha;
     scanf("%d", &escolha);
@@ -69,39 +68,52 @@ void menu(arvore **arv, FILE **arq, int *terminou)
 
     case 4:
     {
-        int quantidade = contar_elementos(*arv);
-        printf("O número de elementos é: nível%d\n", quantidade);
+        int x;
+        printf("Digite o elemento: ");
+        scanf("%d", &x);
+        int nivel = nivel_abb(*arv, x, 0);
+        if(nivel != -1){
+            printf("O elemento %d está no nível %d.\n", x, nivel);
+        }else{
+            printf("O elemento não existe na árvore.\n");
+        }
+
         break;
     }
 
     case 5:
+    {
         int elemento_menor;
         printf("Informe o elemento: ");
         scanf("%d", &elemento_menor);
         imprimir_folhas_menores(arv, elemento_menor);
         printf("\n");
         break;
+    }
     case 6:
-        printf("%s balanceada.\n", esta_balanceada(*arv) ? "Está" : "Não está");
+    {
+        int x;
+        printf("Digite o elemento: ");
+        scanf("%d", &x);
+        inserir_abb(arv, x);
         break;
+    }
     case 7:
-        printf("%s cheia.", esta_cheia(*arv) ? "Está" : "Não está");
+    {
+
+        int x;
+        printf("Digite o elemento: ");
+        scanf("%d", &x);
+        remover_abb(arv, x);
         break;
+    }
     case 8:
-        int e;
-        printf("Informe o elemento: ");
-        scanf("%d", &e);
-        verifica_existencia(*arv, e) ? nivel_elemento(*arv, e, 0) : printf("Elemento não encontrado");
-        printf("\n\n");
-        break;
-    case 9:
     {
         *terminou = 1;
         limpar_memoria(arv);
         printf("Saindo...\n\n");
         break;
     }
-
     default:
     {
         printf("Escolha inválida\n");
