@@ -80,3 +80,16 @@ void ajustarDescendo(int *heap, int pos){
     }
 }
 
+
+void imprimir(int *heap){
+    int quebrar = 1;
+    for (int i = 0; i < totalElementos; i++){
+        if(i+1 == quebrar){
+            printf("\n");
+            quebrar *= 2;
+        }
+        printf("[%d]",heap[i]);
+    }
+    printf("\n");
+}
+

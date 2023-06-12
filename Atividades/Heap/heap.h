@@ -11,5 +11,5 @@ void Inserir(int *heap, int x);
 void ajustarSubindo(int *heap, int pos);
 int remover(int *heap);
 void ajustarDescendo(int *heap, int pos);
-
+void imprimir(int *heap);
 #endif
