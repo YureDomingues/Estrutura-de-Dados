@@ -41,7 +41,7 @@ void ajustarSubindo(int *heap, int pos){
     if(pos!=-1){
         int pai = indicePai(pos);
         if(pai != -1){
-            if(heap[pos]>heap[pai]){
+            if(heap[pos]<heap[pai]){
                 int aux = heap[pos];
                 heap[pos] =  heap[pai];
                 heap[pai] = aux;
@@ -65,16 +65,16 @@ int remover(int *heap){
 
 void ajustarDescendo(int *heap, int pos){
     if(pos != (-1) && indiceFilhoEsq(pos)!=-1){
-        int indiceMaiorFilho = indiceFilhoEsq(pos);
-        if( indiceFilhoDir(pos)!=-1 && heap[indiceFilhoDir(pos)] > heap[indiceMaiorFilho]){
-            indiceMaiorFilho = indiceFilhoDir(pos);
+        int indiceMenorFilho = indiceFilhoEsq(pos);
+        if( indiceFilhoDir(pos)!=-1 && heap[indiceFilhoDir(pos)] < heap[indiceMenorFilho]){
+            indiceMenorFilho = indiceFilhoDir(pos);
         }
 
-        if(heap[indiceMaiorFilho] > heap[pos]){
+        if(heap[indiceMenorFilho] < heap[pos]){
             int aux = heap[pos];
-            heap[pos] = heap[indiceMaiorFilho];
-            heap[indiceMaiorFilho] = aux;
-            ajustarDescendo(heap, indiceMaiorFilho);
+            heap[pos] = heap[indiceMenorFilho];
+            heap[indiceMenorFilho] = aux;
+            ajustarDescendo(heap, indiceMenorFilho);
         }
             
     }
