@@ -12,6 +12,7 @@ int push(Fila *f, int valor);
 /*Remove um elemento da fila. Imprime o valor do elemento removido.*/
 void pop(Fila *f);
 
+/*Imprime toda a fila.*/
 void imprimirFila(Fila *f);
 
 
