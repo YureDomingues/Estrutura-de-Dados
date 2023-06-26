@@ -288,7 +288,7 @@ int main()
 
         case 4:
         {
-            char curso[20];
+            char *curso;
             scanf("%s", curso);
             printf("%d", contar_curso(lista, curso));
             break;
