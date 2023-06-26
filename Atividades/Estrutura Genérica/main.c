@@ -117,9 +117,9 @@ void buscar(Pessoa *p, int matricula)
             {
 
                 printf("Professor:\n");
-                printf("matricula: %d\n", b->matricula);
-                printf("salario: %f\n", b->salario);
                 printf("nome %s\n", b->nome);
+                printf("matricula: %d\n", b->matricula);
+                printf("salario: %.2f\n", b->salario);
                 return;
             }
         }
@@ -198,9 +198,9 @@ void imprimir_maior_salario(Pessoa *p)
             if (b->salario == maior_sal)
             {
                 printf("Professor:\n");
-                printf("matricula: %d\n", b->matricula);
-                printf("salario: %f\n", b->salario);
-                printf("nome %s\n", b->nome);
+                printf("- nome: %s\n", b->nome);
+                printf("- matricula: %d\n", b->matricula);
+                printf("- salario: %.2f\n", b->salario);
             }
         }
         p = p->prox;
@@ -214,49 +214,63 @@ int main()
     int opcao;
     while (!sair)
     {
-        printf("1 - Inserir uma pessoa na lista\n");
+        printf("\n\n1 - Inserir uma pessoa na lista\n");
         printf("2 - Remover uma pessoa pela matricula\n");
         printf("3 - Buscar uma pessoa pela matricula\n");
         printf("4 - Contar o numero de alunos em um determinado curso\n");
         printf("5 - imprimir os professores de maior salario\n");
-        printf("6 - Sair\n");
+        printf("6 - Sair\n\n");
         scanf("%d", &opcao);
         switch (opcao)
         {
         case 1:
             printf("1 - Aluno\n");
-            printf("2 - Professor\n");
+            printf("2 - Professor\n\n");
             int opcao_pessoa;
             scanf("%d", &opcao_pessoa);
             switch (opcao_pessoa)
             {
             case 1:
             {
-                int matricula;
-                char nome[100];
-                char curso[20];
-                int anoIngresso;
-                scanf("%d ", &matricula);
-                scanf("%s ", nome);
-                scanf("%s ", curso);
-                scanf("%d ", &anoIngresso);
-                inserir_aluno(&lista, matricula, nome, curso, anoIngresso);
+                Aluno *a = (Aluno*) malloc(sizeof(Aluno));
+
+                printf("Digite a matrícula: ");
+                scanf("%d", &a->matricula);
+                setbuf(stdin, NULL);
+                printf("Digite o nome do aluno: ");
+                scanf("%[^\n]", a->nome);
+                setbuf(stdin, NULL);
+                printf("Digite o curso: ");
+                scanf("%[^\n]", a->curso);
+                setbuf(stdin, NULL);
+                printf("Digite o ano de ingresso: ");
+                scanf("%d", &a->anoIngresso);
+                setbuf(stdin, NULL);
+                inserir_aluno(&lista, a->matricula, a->nome, a->curso, a->anoIngresso);
                 break;
             }
             case 2:
-            {
-                int matricula;
-                char nome[100];
-                float salario;
-                scanf("%d", &matricula);
-                scanf("%s", nome);
-                scanf("%f", &salario);
-                inserir_professor(&lista, matricula, nome, salario);
+            {  
+                Professor *p = (Professor*) malloc(sizeof(Professor));
+
+                printf("Digite a matricula: ");
+                scanf("%d", &p->matricula);
+                setbuf(stdin, NULL);
+                printf("Digite o nome do Professor: ");
+                scanf("%[^\n]", p->nome);
+                setbuf(stdin, NULL);
+                printf("Digite o salário: ");
+                scanf("%f", &p->salario);
+                setbuf(stdin, NULL);
+                inserir_professor(&lista, p->matricula, p->nome, p->salario);
                 break;
             }
             default:
+                printf("Digite um valor válido\n");
                 break;
             }
+
+            break;
         case 2:
         {
             int matricula;
@@ -287,6 +301,7 @@ int main()
         case 6:
         {
             sair = 1;
+            break;
         }
         default:
             break;
