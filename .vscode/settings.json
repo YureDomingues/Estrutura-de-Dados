@@ -45,6 +45,8 @@
         "streambuf": "c",
         "cinttypes": "c",
         "typeinfo": "c",
-        "grafo.h": "c"
+        "grafo.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c"
     }
 }

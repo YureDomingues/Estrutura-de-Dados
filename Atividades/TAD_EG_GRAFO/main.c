@@ -1,17 +1,17 @@
 #include "grafo.h"
 
+#define n 10
 int main(){
 
-    Grafo g;
-    inicializar(&g, 10);
-    void *a = malloc(sizeof(int));
-    int *b;
-    *b = 1;
-    a = b;
-    inserirAresta(&g,1,2,a);
+    Grafo g[n];
 
-    inserirAresta(&g,1,2,a);
-    imprimirGrafo(&g,10);
+    inicializar(g, n);
+
+    void *a = malloc(sizeof(int));
+    a =(void *) 1;
+
+    inserirAresta(g,3,2,a, sizeof(int));
+    imprimirGrafo(g,10);
 
     return 0;
 }

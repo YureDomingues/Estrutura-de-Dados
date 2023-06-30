@@ -1,40 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "grafo.h"
 
 struct grafo
 {
-    void *obj;
     int destino;
+    void *obj;
     struct grafo *prox;
 };
 
-void inicializar(struct grafo **g, int tamanho){
-    *g = (struct grafo*)malloc(sizeof(struct grafo)*tamanho);
-    for(int i = 0; i<tamanho; i++){
+void inicializar(struct grafo **g, int n){
+    for(int i =0; i<=n; i++){
         g[i] = NULL;
     }
 }
 
-void inserirLista(struct grafo **g, int d, void *obj){
+void inserirLista(struct grafo **l, int d, void *obj, int size){
     struct grafo *no = (struct grafo*) malloc(sizeof(struct grafo));
     no->obj = obj;
     no->destino = d;
-    no->prox = *g;
-    (*g) = no;
+    no->prox = *l;
+    (*l) = no;
 }
 
-void inserirAresta(struct grafo **g, int origem, int destino, void *obj){
-    inserirLista(&(g[origem]), destino, obj);
+void inserirAresta(struct grafo **g, int origem, int destino, void *obj, int size){
+    inserirLista(&(g[origem]), destino, obj, size);
 }
 
+void removerLista(struct grafo **l, int destino, void *obj){
 
-void removerLista(struct grafo **g, int destino, void *obj){
-
-    if(*g==NULL) return;
+    if(*l==NULL) return;
 
     struct grafo **anterior = NULL;
-    struct grafo **p = g;
+    struct grafo **p = l;
 
-    while( *p != NULL && (*p)->destino != destino && (*p)->obj != obj){
+    while( *p != NULL && (*p)->destino != destino){
         anterior = p;
         (*p) = (*p)->prox;
     }
@@ -42,7 +42,7 @@ void removerLista(struct grafo **g, int destino, void *obj){
     if((*p) == NULL) return;
 
     if(anterior == NULL){
-        *g = (*p)->prox;
+        *l = (*p)->prox;
     }else{
         (*anterior)->prox = (*p)->prox;
     }
@@ -50,24 +50,34 @@ void removerLista(struct grafo **g, int destino, void *obj){
     free(p);
 
 }
-void removerAresta(struct grafo **g, int origem, int destino, void * obj){
+
+void removerAresta(struct grafo **g, int origem, int destino, void *obj){
     removerLista(&(g[origem]), destino, obj);
 }
 
 
+void imprimirLista(struct grafo *l){
+    if(l!=NULL){
+        printf("-(%d)", l->destino);
+        imprimirLista(l->prox);
+    }
+}
 void imprimirGrafo(struct grafo **g, int n){
     printf("Grafo: ");
     for(int i=1; i<=n; i++){
         printf("\n\t%d", i);
         imprimirLista(g[i]);
     }
+    printf("\n");
 }
 
-void imprimirLista(struct grafo *g){
-    if(g!=NULL){
-        printf("-(%d)", g->destino);
-        imprimirLista(g->prox);
+
+int existe(int *vet, int valor, int n){
+    for(int i=0; i<n; i++){
+        if(vet[i] == valor)
+            return 1;
     }
+    return 0;
 }
 
 void caminhos(struct grafo **g, int b, int *vet, int pos){
