@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "grafo.h"
 
 struct grafo
@@ -17,7 +18,8 @@ void inicializar(struct grafo **g, int n){
 
 void inserirLista(struct grafo **l, int d, void *obj, int size){
     struct grafo *no = (struct grafo*) malloc(sizeof(struct grafo));
-    no->obj = obj;
+    no->obj = malloc(size);
+    memcpy(no->obj,obj,size);
     no->destino = d;
     no->prox = *l;
     (*l) = no;
@@ -56,17 +58,18 @@ void removerAresta(struct grafo **g, int origem, int destino, void *obj){
 }
 
 
-void imprimirLista(struct grafo *l){
+void imprimirLista(struct grafo *l,void (*imprimir)(void*)){
     if(l!=NULL){
         printf("-(%d)", l->destino);
-        imprimirLista(l->prox);
+        imprimir(l->obj);
+        imprimirLista(l->prox, imprimir);
     }
 }
-void imprimirGrafo(struct grafo **g, int n){
+void imprimirGrafo(struct grafo **g, int n, void (*imprimir)(void*)){
     printf("Grafo: ");
     for(int i=1; i<=n; i++){
         printf("\n\t%d", i);
-        imprimirLista(g[i]);
+        imprimirLista(g[i],imprimir);
     }
     printf("\n");
 }
